@@ -1,0 +1,56 @@
+{
+    "valid_states" : [
+      {
+        "testid": "alabama",
+        "display-name": "Alabama"
+      },
+      {
+        "testid": "california",
+        "display-name": "California"
+      },
+      {
+        "testid": "colorado",
+        "display-name": "Colorado"
+      },
+      {
+        "testid": "florida",
+        "display-name": "Florida"
+      },
+      {
+        "testid": "georgia",
+        "display-name": "Georgia"
+      },
+      {
+        "testid": "illinois",
+        "display-name": "Illinois"
+      },
+      {
+        "testid": "maryland",
+        "display-name": "Maryland"
+      },
+      {
+        "testid": "massachusetts",
+        "display-name": "Massachusetts"
+      },
+      {
+        "testid": "newhampshire",
+        "display-name": "New Hampshire"
+      },
+      {
+        "testid": "texas",
+        "display-name": "Texas"
+      },
+      {
+        "testid": "utah",
+        "display-name": "Utah"
+      },
+      {
+        "testid": "virginia",
+        "display-name": "Virginia"
+      },
+      {
+        "testid": "washington",
+        "display-name": "Washington"
+      }
+    ]
+  }
