@@ -11,6 +11,11 @@ npm install
 ```
 
 # Running Cypress
+## manually via Cypress app
 ``` shell
 npx cypress open
+```
+## or batch on command-line 
+``` shell
+npx cypress run
 ```
