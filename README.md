@@ -1,7 +1,7 @@
 # Cypress automation for the Henry Meds demo appointment scheduler 
 More info about demo app at https://henrymeds.notion.site/SDET-v4-8ea67c6153e24c649678d034544f1fb6 
 
-This project only includes the Cypress code for automation, not the application under test. 
+This project only includes the Cypress code for automation, not code for the demo app under test. 
 
 Requires Node and NPM
 
