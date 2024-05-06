@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { valid_states } from '../../fixtures/valid_states'
-import { get_available_appointments } from '../../support/utils'
+import { getAvailableAppointments } from '../../support/utils'
 
 // TODO: would be good to be able to seed the data for available slots for each state to better know what to expect
 describe('cappedAvailableTimes GraphQL API test spec', () => {
@@ -8,7 +8,7 @@ describe('cappedAvailableTimes GraphQL API test spec', () => {
     const minimumDate = new Date()
     const maximumDate = new Date()
     maximumDate.setDate(maximumDate.getDate() + 14)
-    get_available_appointments(
+    getAvailableAppointments(
       minimumDate,
       maximumDate,
       'california',
@@ -35,7 +35,7 @@ describe('cappedAvailableTimes GraphQL API test spec', () => {
     it(`Calling with minimumDate: ${startDate.toISOString()}, maximumDate: ${endDate.toISOString()}`, () => {
       cy.log('startDate: ' + startDate.toISOString())
       cy.log('endDate: ' + endDate.toISOString())
-      get_available_appointments(
+      getAvailableAppointments(
         startDate,
         endDate,
         'california',
