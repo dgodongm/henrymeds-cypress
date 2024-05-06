@@ -1,0 +1,25 @@
+{
+    "valid_users" : [
+      {
+        "firstName": "Demian",
+        "lastName": "Godon",
+        "email": "dman@goforth.com",
+        "dob": "01/20/1975",
+        "phoneNumber": "206-675-9999",
+        "sex": "Male",
+        "addressLine1": "701 N 34th Street",
+        "city": "Seattle",
+        "zip": "98103"
+      },
+      {
+        "firstName": "Fran",
+        "lastName": "Jones",
+        "email": "fjones@goforth.com",
+        "dob": "12/02/1985",
+        "phoneNumber": "206-657-7777",
+        "sex": "Female",
+        "addressLine1": "701 N 34th Street",
+        "city": "Seattle",
+        "zip": "98103"
+      }    ]
+  }

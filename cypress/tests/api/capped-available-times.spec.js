@@ -1,28 +1,57 @@
-describe('cappedAvailableTimes test spec', () => {
-  it('fetch times for next couple weeks in California', () => {
+import { faker } from '@faker-js/faker'
+import { valid_states } from '../../fixtures/valid_states'
+import { get_available_appointments } from '../../support/utils'
+
+// TODO: would be good to be able to seed the data for available slots for each state to better know what to expect
+describe('cappedAvailableTimes GraphQL API test spec', () => {
+  it('fetch available times for next couple weeks in California', () => {
     const minimumDate = new Date()
     const maximumDate = new Date()
     maximumDate.setDate(maximumDate.getDate() + 14)
-    cy.request({
-      method: 'POST',
-      url: 'https://henry-dev.hasura.app/v1/graphql',
-      body: {
-        operationName: 'cappedAvailableTimes',
-        query: `
-        query 
-        cappedAvailableTimes($state: String!, $treatmentShortId: String!, $minimumDate: timestamptz!, $maximumDate: timestamptz!) 
-        {\n  cappedAvailableTimes: appointment_capped_available_appointment_slots(\n    where: {start_time: {_gt: $minimumDate, _lt: $maximumDate}, state: {_eq: $state}, treatment_object: {short_id: {_eq: $treatmentShortId}}, language: {_eq: \"en-US\"}, provider: {_and: {id: {_is_null: false}}}}\n    order_by: {start_time: asc}\n  ) {\n    ...CappedAvailableSlotsFragment\n    __typename\n  }\n}\n\nfragment CappedAvailableSlotsFragment on appointment_capped_available_appointment_slots {\n  startTime: start_time\n  endTime: end_time\n  provider {\n    id\n    displayName: display_name\n    profileImage: profile_image\n    __typename\n  }\n  __typename\n}
-        `,
-        variables: {
-          minimumDate: minimumDate.toISOString(),
-          maximumDate: maximumDate.toISOString(),
-          state: 'california',
-          treatmentShortId: 'weightloss',
-        },
-      },
-    }).then((response) => {
+    get_available_appointments(
+      minimumDate,
+      maximumDate,
+      'california',
+      'weightloss'
+    ).then((response) => {
       expect(response.status).to.be.equal(200)
       expect(response.body.data.cappedAvailableTimes).to.have.lengthOf.above(0)
+      expect(response.body.data.cappedAvailableTimes[0]).to.have.keys(
+        'endTime',
+        'provider',
+        'startTime',
+        '__typename'
+      )
     })
   })
+
+  // Generate 10 tests that vary the minimumDate and maximumDate input variables
+  let startDate, endDate
+  for (let i = 0; i < 10; i++) {
+    startDate = faker.date.soon({ days: 2 })
+    endDate = new Date()
+    endDate.setDate(startDate.getDate() + faker.number.int({ min: 1, max: 30 }))
+
+    it(`Calling with minimumDate: ${startDate.toISOString()}, maximumDate: ${endDate.toISOString()}`, () => {
+      cy.log('startDate: ' + startDate.toISOString())
+      cy.log('endDate: ' + endDate.toISOString())
+      get_available_appointments(
+        startDate,
+        endDate,
+        'california',
+        'weightloss'
+      ).then((response) => {
+        expect(response.status).to.be.equal(200)
+        expect(response.body.data.cappedAvailableTimes).to.have.lengthOf.above(
+          0
+        )
+        expect(response.body.data.cappedAvailableTimes[0]).to.have.keys(
+          'endTime',
+          'provider',
+          'startTime',
+          '__typename'
+        )
+      })
+    })
+  }
 })
