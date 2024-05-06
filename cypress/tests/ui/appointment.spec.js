@@ -1,6 +1,8 @@
 import { valid_users } from '../../fixtures/valid_users'
 import { valid_states } from '../../fixtures/valid_states'
 import {
+  enterContactDetails,
+  enterShippingDetails,
   verifyAppointmentLandingPage,
   verifyAvailableSlotsPage,
   verifyNextStepsPage,
@@ -20,7 +22,7 @@ describe('appointment test spec', () => {
     // check appointment landing page
     verifyAppointmentLandingPage()
 
-    // select state
+    // select washington state
     cy.getByData(valid_states[valid_states.length - 1].testid).click()
 
     // check that there are available appointment slots and select first one
@@ -52,23 +54,14 @@ describe('appointment test spec', () => {
     cy.get('h3').contains('Contact Details')
 
     // fill out contact details and click Continue
-    cy.getByData('firstName').type(valid_users[0].firstName)
-    cy.getByData('lastName').type(valid_users[0].lastName)
-    cy.getByData('email').type(valid_users[0].email)
-    cy.getByData('verifyEmail').type(valid_users[0].email)
-    cy.getByData('dob').type(valid_users[0].dob)
-    cy.getByData('phoneNumber').type(valid_users[0].phoneNumber)
-    cy.getByData('sex').select(valid_users[0].sex)
-    cy.getByData('tosConsent').check()
+    enterContactDetails(valid_users[0])
     cy.getByData('contactDetailsContinue').click()
 
     // check shipping page
     verifyShippingPage()
 
     // fill out shipping info and click Continue
-    cy.getByData('addressLine1').type(valid_users[0].addressLine1)
-    cy.getByData('city').type(valid_users[0].city)
-    cy.getByData('zip').type(valid_users[0].zip)
+    enterShippingDetails(valid_users[0])
     cy.getByData('shippingAddressContinue').click()
 
     // check payment screen

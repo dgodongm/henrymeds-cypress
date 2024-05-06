@@ -52,7 +52,24 @@ export const verifyPaymentPage = (firstName, lastName) => {
   cy.getByData('startTreatment').should('be.enabled')
 }
 
-export const get_available_appointments = (
+export const enterContactDetails = (user) => {
+  cy.getByData('firstName').type(user.firstName)
+  cy.getByData('lastName').type(user.lastName)
+  cy.getByData('email').type(user.email)
+  cy.getByData('verifyEmail').type(user.email)
+  cy.getByData('dob').type(user.dob)
+  cy.getByData('phoneNumber').type(user.phoneNumber)
+  cy.getByData('sex').select(user.sex)
+  cy.getByData('tosConsent').check()
+}
+
+export const enterShippingDetails = (user) => {
+  cy.getByData('addressLine1').type(user.addressLine1)
+  cy.getByData('city').type(user.city)
+  cy.getByData('zip').type(user.zip)
+}
+
+export const getAvailableAppointments = (
   startDate,
   endDate,
   state,
